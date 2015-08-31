@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>React MountIf decorator examples</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>As a decorator</h2>
+                <div id="react-mount-modern"></div>
+                <hr>
+                <pre>
+import MountIf from '../../lib';
+import React from 'react';
+
+@MountIf
+class HelloWorld extends React.Component {
+    render() {
+        return &ltdiv>Hello World&lt/div>;
+    }
+}
+
+class Example extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { show: false };
+    }
+
+    handleState = () => {
+        this.setState({ show: !this.state.show });
+    }
+
+    render() {
+        const status = this.state.show ? 'success' : 'danger';
+        return (
+            &ltdiv>
+                &ltdiv>
+                    &ltcode>this.state.show&lt/code>:
+                    &ltspan className={`label label-${status}`}>
+                        {Boolean(this.state.show).toString()}
+                    &lt/span>
+                &lt/div>
+                &lthr/>
+                &ltbutton
+                    onClick={this.handleState}
+                    className="btn btn-primary"
+                >
+                    Click to toggle a nice greeting
+                &lt/button>
+                &ltHelloWorld mountIf={this.state.show} />
+            &lt/div>
+        );
+    }
+}
+
+export default Example;</pre>
+            </div>
+            <div class="col-md-6">
+                <h2>As createClass</h2>
+                <div id="react-mount-classic"></div>
+                <hr>
+                <pre>
+import MountIf from '../../lib';
+import React from 'react';
+
+let HelloWorld = React.createClass({
+    render() {
+        return &ltdiv>Hello World&lt/div>;
+    }
+});
+
+HelloWorld = MountIf(HelloWorld);
+
+const Example = React.createClass({
+    getInitialState() {
+        return { show: false };
+    },
+
+    handleState() {
+        this.setState({ show: !this.state.show });
+    },
+
+    render() {
+        const status = this.state.show ? 'success' : 'danger';
+        return (
+            &ltdiv>
+                &ltdiv>
+                    &ltcode>this.state.show</code>:
+                    &ltspan className={`label label-${status}`}>
+                        {Boolean(this.state.show).toString()}
+                    &lt/span>
+                &lt/div>
+                &lthr/>
+                &ltbutton
+                    onClick={this.handleState}
+                    className="btn btn-primary"
+                >
+                    Click to toggle a nice greeting
+                &lt/button>
+                &ltHelloWorld mountIf={this.state.show} />
+            &lt/div>
+        );
+    }
+});
+
+export default Example;</pre>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+</html>
